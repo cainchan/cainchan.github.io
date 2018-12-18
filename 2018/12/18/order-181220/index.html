@@ -5,15 +5,19 @@
   
 
   
-  <title>CainChan</title>
+  <title>订单入职过保逻辑 | CainChan</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="CainChan">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="一.增加业务逻辑订单入职/过保时的操作(update_order_status) 将该简历的其他推荐记录删除 将简历的状态 改为 不考虑机会 - (忠池提供function)(修改简历current_status字段) 将简历的推荐记录全部设为无效  二.刷过往数据脚本一.刷过往数据 获取昨天设置过为入职/过保的所有订单号(去重) 1select distinct order_id from hu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="订单入职过保逻辑">
+<meta property="og:url" content="http://yoursite.com/2018/12/18/order-181220/index.html">
 <meta property="og:site_name" content="CainChan">
+<meta property="og:description" content="一.增加业务逻辑订单入职/过保时的操作(update_order_status) 将该简历的其他推荐记录删除 将简历的状态 改为 不考虑机会 - (忠池提供function)(修改简历current_status字段) 将简历的推荐记录全部设为无效  二.刷过往数据脚本一.刷过往数据 获取昨天设置过为入职/过保的所有订单号(去重) 1select distinct order_id from hu">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-12-18T14:10:46.562Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CainChan">
+<meta name="twitter:title" content="订单入职过保逻辑">
+<meta name="twitter:description" content="一.增加业务逻辑订单入职/过保时的操作(update_order_status) 将该简历的其他推荐记录删除 将简历的状态 改为 不考虑机会 - (忠池提供function)(修改简历current_status字段) 将简历的推荐记录全部设为无效  二.刷过往数据脚本一.刷过往数据 获取昨天设置过为入职/过保的所有订单号(去重) 1select distinct order_id from hu">
   
     <link rel="alternate" href="/atom.xml" title="CainChan" type="application/atom+xml">
   
@@ -60,9 +64,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-order-181220" class="article article-type-post" itemscope="" itemprop="blogPost">
+        <section id="main"><article id="post-order-181220" class="article article-type-post" itemscope="" itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/18/order-181220/" class="article-date">
   <time datetime="2018-12-18T14:10:46.562Z" itemprop="datePublished">2018-12-18</time>
@@ -79,8 +81,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/18/order-181220/">订单入职过保逻辑</a>
+    <h1 class="article-title" itemprop="name">
+      订单入职过保逻辑
     </h1>
   
 
@@ -125,72 +127,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-deploy-shadowsocks" class="article article-type-post" itemscope="" itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/12/18/deploy-shadowsocks/" class="article-date">
-  <time datetime="2018-12-18T13:21:50.000Z" itemprop="datePublished">2018-12-18</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Internet/">Internet</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/18/deploy-shadowsocks/">Ubuntu18.04部署Shadowsocks</a>
-    </h1>
+    <a href="/2018/12/18/deploy-shadowsocks/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Ubuntu18.04部署Shadowsocks</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h4 id="一-Server部署"><a href="#一-Server部署" class="headerlink" title="一.Server部署"></a>一.Server部署</h4><ol>
-<li><p>更新源 <code>sudo apt-get update</code></p>
-</li>
-<li><p>安装python-pip <code>sudo apt-get install python-pip</code></p>
-</li>
-<li><p>安装shadowsocks <code>sudo pip install shadowsocks</code></p>
-</li>
-<li><p>编写配置文件<code>sudo vim /etc/shadowsocks.json</code></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">&quot;server&quot;: &quot;0.0.0.0&quot;,</span><br><span class="line">&quot;server_port&quot;: 9999,</span><br><span class="line">&quot;local_address&quot;: &quot;127.0.0.1&quot;,</span><br><span class="line">&quot;local_port&quot;: 5555,</span><br><span class="line">&quot;password&quot;: &quot;******&quot;,</span><br><span class="line">&quot;method&quot;: &quot;aes-256-cfb&quot;,</span><br><span class="line">&quot;fast_open&quot;: true,</span><br><span class="line">&quot;timeout&quot;:300</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>启动服务 <code>sudo ssserver -c /etc/shadowsocks.json -d start</code></p>
-</li>
-</ol>
-<h4 id="二-客户端下载"><a href="#二-客户端下载" class="headerlink" title="二.客户端下载"></a>二.客户端下载</h4><p><a href="https://github.com/shadowsocks/shadowsocks-windows/releases" target="_blank" rel="noopener">Client下载</a></p>
-<h3 id="三-备注"><a href="#三-备注" class="headerlink" title="三.备注"></a>三.备注</h3><ul>
-<li><p>Ubuntu18.04需修正openssl版本问题,替换<code>EVP_CIPHER_CTX_cleanup</code>为<code>EVP_CIPHER_CTX_reset</code></p>
-<p> <code>sudo sed -i &#39;s/EVP_CIPHER_CTX_cleanup/EVP_CIPHER_CTX_reset/g&#39; /usr/local/lib/python2.7/dist-packages/shadowsocks/crypto/openssl.py</code></p>
-</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/12/18/deploy-shadowsocks/" data-id="cjpttehnd0000n9uud4tndhn8" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shadowsocks/">shadowsocks</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ss/">ss</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-
 
 </section>
         
