@@ -5,7 +5,6 @@ categories:
 - Internet
 tags: 
 - shadowsocks
-- ss
 ---
 
 #### 一.Server部署
