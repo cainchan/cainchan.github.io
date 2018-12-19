@@ -80,4 +80,4 @@ theme: next
 deploy:
   type: git
   repo: git@github.com:cainchan/cainchan.github.io.git
-  branch: gh-pages
+  branch: master
