@@ -1,7 +1,7 @@
 ---
 title: PHP POST提交数据
 date: 2016-12-19 21:21:06
-tags: php
+tags: PHP
 ---
 #### 1.封装curl方法:
 ```php

@@ -4,7 +4,7 @@ date: 2018-12-18 21:21:50
 categories:
 - Internet
 tags: 
-- shadowsocks
+- Shadowsocks
 ---
 
 #### 一.Server部署

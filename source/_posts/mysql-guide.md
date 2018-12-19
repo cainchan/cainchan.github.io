@@ -1,7 +1,7 @@
 ---
 title: mysql操作指南
 date: 2016-12-19 21:22:29
-tags: mysql
+tags: Mysql
 ---
 #### 一、Mysql修改密码
 ###### 知道原密码

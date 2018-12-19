@@ -1,7 +1,7 @@
 ---
 title: Composer笔记
 date: 2016-12-19 21:17:51
-tags: composer
+tags: Composer
 ---
 #### 1.安装
 ```bash

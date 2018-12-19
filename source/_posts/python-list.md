@@ -1,7 +1,7 @@
 ---
 title: Python的列表推导式
 date: 2016-12-19 21:19:28
-tags: python
+tags: Python
 ---
 #### 1.列表推导式书写形式
 [表达式 for 变量 in 列表]    或者  [表达式 for 变量 in 列表 if 条件]
