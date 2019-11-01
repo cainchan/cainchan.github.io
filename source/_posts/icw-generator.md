@@ -68,3 +68,4 @@ php generator.php toh models accounts
 #php generator.php 数据库名 daos 表名
 php generator.php toh daos accounts
 ```
+
