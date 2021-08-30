@@ -20,6 +20,7 @@ docker pull python:3-alpine
 FROM python:3-alpine
 RUN pip install pandas
 RUN pip install xlrd
+RUN apk add build-base postgresql-dev
 RUN pip install psycopg2
 
 WORKDIR /data
@@ -56,5 +57,5 @@ python () {
 
 #### 使用
 
-执行`python -V`测试输出版本号
+执行`python -V`测试输出版本号即可
 
