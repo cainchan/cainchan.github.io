@@ -1,5 +1,5 @@
 ---
-title: Frp内网穿透配置
+title: Frp内网穿透
 date: 2021-08-30 23:00:00
 tags:
  - Frp
