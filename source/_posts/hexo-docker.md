@@ -41,11 +41,8 @@ docker build -t hexo:12-alpine .
 
 ```bash
 hexo () {
-    tty=
-    tty -s && tty=--tty
     docker run \
-        $tty \
-        --interactive \
+        -it \
         --rm \
         -p 4000:4000 \
         --volume $PWD:/data:rw \
