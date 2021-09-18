@@ -6,6 +6,8 @@ tags:
  - Docker
 ---
 
+#### Gitlab
+
 ```yaml
 version: "3"
 services:
@@ -29,6 +31,31 @@ services:
       - './data/gitlab/data:/var/opt/gitlab'
     network_mode: bridge
 ```
+
+
+
+#### Gitlab-Runner
+
+```yaml
+version: "3"
+services:
+  gitlab-runner:
+    image: gitlab/gitlab-runner:alpine
+    container_name: gitlab-runner
+    privileged: true
+    volumes:
+      - ./data/gitlab-runner/config:/etc/gitlab-runner
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $HOME/.m2:/root/.m2
+    environment:
+      TZ: "$TZ"
+    restart: always
+    network_mode: bridge
+```
+
+
+
+#### Jenkins
 
 ```yaml
 version: "3"
