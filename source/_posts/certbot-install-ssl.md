@@ -13,7 +13,14 @@ sudo yum install certbot
 certbot certonly --standalone -d youdomain.com -d www.youdomain.com
 ```
 
+or
+
+```bash
+certbot certonly  -d *.kaychen.cn --preferred-challenges dns --manual --server https://acme-v02.api.letsencrypt.org/directory
+```
+
 #### 3.配置Nginx SSL站点
+
 ```
 server {
     listen 80;
