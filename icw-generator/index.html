@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="">
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=6.6.0" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=6.6.0">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=6.6.0">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=6.6.0" color="#222">
+
+
+
+
+
+
+
+
+
+<script id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '6.6.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="1.新建数据库.数据表 toh.accounts2.配置项目路径vim generator.php在$_map中增加一条[&amp;quot;数据库名&amp;quot; =&amp;gt; [&amp;quot;数据库名&amp;quot;,&amp;quot;core文件前缀名&amp;quot;,&amp;quot;项目路径&amp;quot;]]1[&apos;toh&apos; =&amp;gt; array(&apos;toh&apos;, &apos;Toh&apos;, &apos;/data/zhengkai.chen/toh">
+<meta name="keywords" content="icw">
+<meta property="og:type" content="article">
+<meta property="og:title" content="icw generator使用方法">
+<meta property="og:url" content="http://yoursite.com/icw-generator/index.html">
+<meta property="og:site_name" content="KayChen">
+<meta property="og:description" content="1.新建数据库.数据表 toh.accounts2.配置项目路径vim generator.php在$_map中增加一条[&amp;quot;数据库名&amp;quot; =&amp;gt; [&amp;quot;数据库名&amp;quot;,&amp;quot;core文件前缀名&amp;quot;,&amp;quot;项目路径&amp;quot;]]1[&apos;toh&apos; =&amp;gt; array(&apos;toh&apos;, &apos;Toh&apos;, &apos;/data/zhengkai.chen/toh">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2021-09-27T09:53:48.796Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="icw generator使用方法">
+<meta name="twitter:description" content="1.新建数据库.数据表 toh.accounts2.配置项目路径vim generator.php在$_map中增加一条[&amp;quot;数据库名&amp;quot; =&amp;gt; [&amp;quot;数据库名&amp;quot;,&amp;quot;core文件前缀名&amp;quot;,&amp;quot;项目路径&amp;quot;]]1[&apos;toh&apos; =&amp;gt; array(&apos;toh&apos;, &apos;Toh&apos;, &apos;/data/zhengkai.chen/toh">
+
+
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/icw-generator/">
+
+
+
+<script id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>icw generator使用方法 | KayChen</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion .logo-line-before i { left: initial; }
+    .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope="" itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">KayChen</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+
+    
+    
+    
+      
+    
+
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+
+      
+      
+    </ul>
+  
+
+  
+
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/icw-generator/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KayChen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KayChen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">icw generator使用方法
+
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2017-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2017-01-01T00:00:00+00:00">2017-01-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2021-09-27 09:53:48" itemprop="dateModified" datetime="2021-09-27T09:53:48+00:00">2021-09-27</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing"><a href="/categories/Ifchange/" itemprop="url" rel="index"><span itemprop="name">Ifchange</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1-新建数据库-数据表-toh-accounts"><a href="#1-新建数据库-数据表-toh-accounts" class="headerlink" title="1.新建数据库.数据表 toh.accounts"></a>1.新建数据库.数据表 toh.accounts</h4><h4 id="2-配置项目路径"><a href="#2-配置项目路径" class="headerlink" title="2.配置项目路径"></a>2.配置项目路径</h4><p><code>vim generator.php</code><br>在<code>$_map</code>中增加一条<code>[&quot;数据库名&quot; =&gt; [&quot;数据库名&quot;,&quot;core文件前缀名&quot;,&quot;项目路径&quot;]]</code><br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">'toh'</span> =&gt; <span class="keyword">array</span>(<span class="string">'toh'</span>, <span class="string">'Toh'</span>, <span class="string">'/data/zhengkai.chen/toh'</span>)]</span><br></pre></td></tr></table></figure></p>
+<h4 id="3-添加数据库配置文件路径"><a href="#3-添加数据库配置文件路径" class="headerlink" title="3.添加数据库配置文件路径"></a>3.添加数据库配置文件路径</h4><p><code>vim configs/config.php</code><br>增加数据库名<code>toh</code>到循环载入列表<br><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span> (<span class="keyword">array</span>(<span class="string">'contacts'</span>, <span class="string">'cv'</span>, <span class="string">'hunter'</span>, <span class="string">'oa'</span>, <span class="string">'mail'</span>, <span class="string">'chance'</span>, <span class="string">'cms'</span>, <span class="string">'chinahr'</span>, <span class="string">'passport'</span>, <span class="string">'career'</span>, <span class="string">'crawler'</span>,<span class="string">'gsystem'</span>,<span class="string">'green_liepin'</span>, <span class="string">'clickstream'</span>, <span class="string">'proxy'</span>, <span class="string">'grab'</span>, <span class="string">'icdc_1'</span>, <span class="string">'icdc_allot'</span>, <span class="string">'pay'</span>, <span class="string">'package'</span>, <span class="string">'grab_mail'</span>,<span class="string">'toh'</span>) <span class="keyword">as</span> $db)&#123;</span><br><span class="line">    <span class="keyword">include</span> dirname(<span class="keyword">__FILE__</span>). sprintf(<span class="string">'/database/%s.schema.php'</span>, $db);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h4 id="4-新建数据库配置文件"><a href="#4-新建数据库配置文件" class="headerlink" title="4.新建数据库配置文件"></a>4.新建数据库配置文件</h4><p><code>vim configs/database/toh.schema.php</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$g_dao_map[&apos;toh&apos;][&apos;accounts&apos;] = array(</span><br><span class="line">	&apos;path&apos;=&gt;&apos;account&apos;, //目录名</span><br><span class="line">	&apos;dao&apos;=&gt;&apos;account&apos;, //dao文件名</span><br><span class="line">	&apos;equal_search_items&apos; =&gt; &quot;&quot;,</span><br><span class="line">	&apos;like_search_items&apos;  =&gt; &quot;&quot;,</span><br><span class="line">	&apos;like2_search_items&apos; =&gt; &apos;&apos;,</span><br><span class="line">	&apos;fetch_name_columns&apos; =&gt; array(),</span><br><span class="line">	&apos;data_maps_many&apos;     =&gt; array(),</span><br><span class="line">	&apos;data_maps_one&apos;      =&gt; array(),</span><br><span class="line">	&apos;kv_data_maps_one&apos;      =&gt; array(),</span><br><span class="line">	&apos;kv_data_maps_many&apos;  =&gt; array(),</span><br><span class="line">	&apos;model&apos;  =&gt;&apos;account/Model_account&apos;, // model文件路径名</span><br><span class="line">	&apos;has_one&apos;    =&gt;&quot;&quot;,</span><br><span class="line">	&apos;has_many&apos;   =&gt;&quot;&quot;,</span><br><span class="line">	&apos;foriegn_key&apos; =&gt;&apos;&apos;,</span><br><span class="line">	);</span><br><span class="line">$g_controller_map[&apos;toh&apos;][&apos;accounts&apos;] =array(</span><br><span class="line">    &apos;path&apos;                      =&gt; &apos;&apos;,</span><br><span class="line">    &apos;SUGGEST&apos;                   =&gt; FALSE,// 是否需要suggest</span><br><span class="line">    &apos;controller&apos;                =&gt; &apos;account&apos;, //控制器名</span><br><span class="line">    &apos;LOGIC&apos;                     =&gt; &apos;account/Logic_account&apos;, //logic文件路径名</span><br><span class="line">    &apos;ILIST_ITEM&apos;                =&gt; array(),</span><br><span class="line">    &apos;ILIST_ITEM2&apos;               =&gt; array(),</span><br><span class="line">    &apos;SEARCH_INTVAL_ITEM&apos;        =&gt; array(),</span><br><span class="line">    &apos;SEARCH_ITEM&apos;               =&gt; array(),</span><br><span class="line">    &apos;SEARCH_CONDITIONS&apos;         =&gt; array(),</span><br><span class="line">);</span><br></pre></td></tr></table></figure></p>
+<h4 id="5-生成controller"><a href="#5-生成controller" class="headerlink" title="5.生成controller"></a>5.生成controller</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#php generator.php 数据库名 controllers 表名</span></span><br><span class="line">php generator.php toh controllers accounts</span><br></pre></td></tr></table></figure>
+<h4 id="6-生成model"><a href="#6-生成model" class="headerlink" title="6.生成model"></a>6.生成model</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#php generator.php 数据库名 models 表名</span></span><br><span class="line">php generator.php toh models accounts</span><br></pre></td></tr></table></figure>
+<h4 id="7-生成dao"><a href="#7-生成dao" class="headerlink" title="7.生成dao"></a>7.生成dao</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#php generator.php 数据库名 daos 表名</span></span><br><span class="line">php generator.php toh daos accounts</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/icw/" rel="tag"># icw</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/mysql-guide/" rel="next" title="mysql操作指南">
+                <i class="fa fa-chevron-left"></i> mysql操作指南
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/windows-vpn-intranet/" rel="prev" title="windows配置仅内网网络走VPN">
+                windows配置仅内网网络走VPN <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+  </div>
+
+
+          </div>
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">KayChen</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/archives/">
+                
+                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">2</span>
+                    <span class="site-state-item-name">分类</span>
+                  
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">39</span>
+                    <span class="site-state-item-name">标签</span>
+                  
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </div>
+
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-新建数据库-数据表-toh-accounts"><span class="nav-number">1.</span> <span class="nav-text">1.新建数据库.数据表 toh.accounts</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-配置项目路径"><span class="nav-number">2.</span> <span class="nav-text">2.配置项目路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-添加数据库配置文件路径"><span class="nav-number">3.</span> <span class="nav-text">3.添加数据库配置文件路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-新建数据库配置文件"><span class="nav-number">4.</span> <span class="nav-text">4.新建数据库配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-生成controller"><span class="nav-number">5.</span> <span class="nav-text">5.生成controller</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-生成model"><span class="nav-number">6.</span> <span class="nav-text">6.生成model</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-生成dao"><span class="nav-number">7.</span> <span class="nav-text">7.生成dao</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">KayChen</span>
+
+  
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动 v3.8.0</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.6.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+    
+
+    
+  </div>
+
+  
+
+<script>
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script src="/js/src/utils.js?v=6.6.0"></script>
+
+  <script src="/js/src/motion.js?v=6.6.0"></script>
+
+
+
+  
+  
+
+
+  <script src="/js/src/affix.js?v=6.6.0"></script>
+
+  <script src="/js/src/schemes/pisces.js?v=6.6.0"></script>
+
+
+
+  
+  <script src="/js/src/scrollspy.js?v=6.6.0"></script>
+<script src="/js/src/post-details.js?v=6.6.0"></script>
+
+
+
+  
+
+
+  <script src="/js/src/bootstrap.js?v=6.6.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
