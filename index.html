@@ -292,6 +292,187 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/docker-openvpn/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="KayChen">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="KayChen">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/docker-openvpn/" class="post-title-link" itemprop="http://yoursite.com/index.html">Docker-compose部署openVPN</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2022-07-29 00:00:00 / 修改时间：14:50:32" itemprop="dateCreated datePublished" datetime="2022-07-29T00:00:00+00:00">2022-07-29</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h5 id="一-部署"><a href="#一-部署" class="headerlink" title="一. 部署"></a>一. 部署</h5><ul>
+<li>创建 <code>docker-compose.yml</code></li>
+</ul>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">version:</span> <span class="string">'3'</span></span><br><span class="line"><span class="attr">services:</span></span><br><span class="line"><span class="attr">  openvpn:</span></span><br><span class="line"><span class="attr">    cap_add:</span></span><br><span class="line"><span class="bullet">     -</span> <span class="string">NET_ADMIN</span></span><br><span class="line"><span class="attr">    image:</span> <span class="string">kylemanna/openvpn</span></span><br><span class="line"><span class="attr">    container_name:</span> <span class="string">openvpn</span></span><br><span class="line"><span class="attr">    ports:</span></span><br><span class="line"><span class="bullet">     -</span> <span class="string">"1194:1194"</span></span><br><span class="line"><span class="attr">    restart:</span> <span class="string">always</span></span><br><span class="line"><span class="attr">    volumes:</span></span><br><span class="line"><span class="bullet">     -</span> <span class="string">./data/conf:/etc/openvpn</span></span><br></pre></td></tr></table></figure>
+<h5 id="二-初始化"><a href="#二-初始化" class="headerlink" title="二. 初始化"></a>二. 初始化</h5><ul>
+<li><p>初始化配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose run --rm openvpn ovpn_genconfig -u tcp://vpn.kaychen.cn</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化证书</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose run --rm openvpn ovpn_initpki</span><br></pre></td></tr></table></figure>
+<p>输出示例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">init-pki complete; you may now create a CA or requests.</span><br><span class="line">Your newly created PKI dir is: /etc/openvpn/pki</span><br><span class="line">Using SSL: openssl OpenSSL 1.1.1g  21 Apr 2020</span><br><span class="line"></span><br><span class="line">Enter New CA Key Passphrase: (输入密码)</span><br><span class="line">Re-Enter New CA Key Passphrase: (输入密码)</span><br><span class="line">Generating RSA private key, 2048 bit long modulus (2 primes)</span><br><span class="line">...............................................+++++</span><br><span class="line">..............................................+++++</span><br><span class="line">You are about to be asked to enter information that will be incorporated</span><br><span class="line">into your certificate request.</span><br><span class="line">What you are about to enter is what is called a Distinguished Name or a DN.</span><br><span class="line">There are quite a few fields but you can leave some blank</span><br><span class="line">For some fields there will be a default value,</span><br><span class="line">If you enter &apos;.&apos;, the field will be left blank.</span><br><span class="line">-----</span><br><span class="line">Common Name (eg: your user, host, or server name) [Easy-RSA CA]:(直接回车)</span><br><span class="line">DH parameters of size 2048 created at /etc/openvpn/pki/dh.pem</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Using SSL: openssl OpenSSL 1.1.1g  21 Apr 2020</span><br><span class="line">Generating a RSA private key</span><br><span class="line">..................+++++</span><br><span class="line">...........................+++++</span><br><span class="line">writing new private key to &apos;/etc/openvpn/pki/easy-rsa-72.DKOLbA/tmp.HckbDH&apos;</span><br><span class="line">-----</span><br><span class="line">Using configuration from /etc/openvpn/pki/easy-rsa-72.DKOLbA/tmp.glJiIo</span><br><span class="line">Enter pass phrase for /etc/openvpn/pki/private/ca.key:(输入密码)</span><br><span class="line">Check that the request matches the signature</span><br><span class="line">Signature ok</span><br><span class="line">The Subject&apos;s Distinguished Name is as follows</span><br><span class="line">commonName            :ASN.1 12:&apos;vpn.kaychen.cn&apos;</span><br><span class="line">Certificate is to be certified until Oct 31 10:23:04 2024 GMT (825 days)</span><br><span class="line"></span><br><span class="line">Write out database with 1 new entries</span><br><span class="line">Data Base Updated</span><br><span class="line"></span><br><span class="line">Using SSL: openssl OpenSSL 1.1.1g  21 Apr 2020</span><br><span class="line">Using configuration from /etc/openvpn/pki/easy-rsa-147.oHBngi/tmp.iaDMkK</span><br><span class="line">Enter pass phrase for /etc/openvpn/pki/private/ca.key:(输入密码)</span><br><span class="line"></span><br><span class="line">An updated CRL has been created.</span><br><span class="line">CRL file: /etc/openvpn/pki/crl.pem</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>调整目录权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo chown -R $(whoami): ./data</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>生成客户端证书</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># with a passphrase (recommended)</span></span><br><span class="line">docker-compose run --rm openvpn easyrsa build-client-full zhengkai.chen</span><br><span class="line"><span class="comment"># without a passphrase (not recommended)</span></span><br><span class="line">docker-compose run --rm openvpn easyrsa build-client-full zhengkai.chen nopass</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导出客户端配置ovpn</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose run --rm openvpn ovpn_getclient zhengkai.chen &gt; zhengkai.chen.ovpn</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>撤销客户端证书</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Keep the corresponding crt, key and req files.</span></span><br><span class="line">docker-compose run --rm openvpn ovpn_revokeclient zhengkai.chen</span><br><span class="line"><span class="comment"># Remove the corresponding crt, key and req files.</span></span><br><span class="line">docker-compose run --rm openvpn ovpn_revokeclient zhengkai.chen remove</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动openVPN</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h5 id="三-下载客户端"><a href="#三-下载客户端" class="headerlink" title="三. 下载客户端"></a>三. 下载客户端</h5><ul>
+<li><a href="https://openvpn.net/client-connect-vpn-for-mac-os/" target="_blank" rel="noopener">MacOS</a></li>
+<li><a href="https://openvpn.net/client-connect-vpn-for-windows/" target="_blank" rel="noopener">Windows</a></li>
+</ul>
+<h5 id="参考"><a href="#参考" class="headerlink" title="参考:"></a>参考:</h5><ul>
+<li><p><a href="https://openvpn.net" target="_blank" rel="noopener">openvpn官网</a></p>
+</li>
+<li><p><a href="https://github.com/kylemanna/docker-openvpn/blob/master/docs/docker-compose.md" target="_blank" rel="noopener">docker-openvpn</a></p>
+</li>
+<li><a href="https://zhuanlan.zhihu.com/p/497357782" target="_blank" rel="noopener">openvpn 配置</a></li>
+</ul>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+      
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/frp/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1778,174 +1959,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/certbot-install-ssl/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="KayChen">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="KayChen">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/certbot-install-ssl/" class="post-title-link" itemprop="http://yoursite.com/index.html">使用Certbot安装Let's Encrypt免费SSL证书</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-
-              
-                
-              
-
-              <time title="创建时间：2018-12-20 00:37:17" itemprop="dateCreated datePublished" datetime="2018-12-20T00:37:17+00:00">2018-12-20</time>
-            
-
-            
-              
-
-              
-                
-                <span class="post-meta-divider">|</span>
-                
-
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">更新于</span>
-                
-                <time title="修改时间：2021-09-27 11:56:14" itemprop="dateModified" datetime="2021-09-27T11:56:14+00:00">2021-09-27</time>
-              
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="1-安装certbot"><a href="#1-安装certbot" class="headerlink" title="1.安装certbot"></a>1.安装certbot</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install certbot</span><br></pre></td></tr></table></figure>
-<h4 id="2-生成域名证书"><a href="#2-生成域名证书" class="headerlink" title="2.生成域名证书"></a>2.生成域名证书</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot certonly --standalone -d youdomain.com -d www.youdomain.com</span><br></pre></td></tr></table></figure>
-<p>or</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot certonly  -d *.kaychen.cn --preferred-challenges dns --manual --server https://acme-v02.api.letsencrypt.org/directory</span><br></pre></td></tr></table></figure>
-<h4 id="3-配置Nginx-SSL站点"><a href="#3-配置Nginx-SSL站点" class="headerlink" title="3.配置Nginx SSL站点"></a>3.配置Nginx SSL站点</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name www.youdomain.com youdomain.com;</span><br><span class="line">    return 301 https://$server_name$request_uri;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">server&#123;</span><br><span class="line">    listen 443 ssl;</span><br><span class="line">    server_name www.youdomain.com youdomain.com;</span><br><span class="line">    index index.html index.htm index.php default.html default.htm default.php;</span><br><span class="line">    root  /home/wwwroot/www.youdomain.com;</span><br><span class="line">    ssl on;</span><br><span class="line">    ssl_certificate /etc/letsencrypt/live/youdomain.com/fullchain.pem;</span><br><span class="line">    ssl_certificate_key /etc/letsencrypt/live/youdomain.com/privkey.pem;</span><br><span class="line"></span><br><span class="line">    ……</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-<p>其中<code>return 301 https://$server_name$request_uri;</code>是用来实现80端口到443端口的流量跳转的.<br>重启Ningx即可</p>
-<h4 id="4-查看证书"><a href="#4-查看证书" class="headerlink" title="4.查看证书"></a>4.查看证书</h4><p>可使用下列命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot certificates</span><br></pre></td></tr></table></figure>
-<p>就可以看到当前机器所有域名的证书情况，包括域名、 到期日、证书路径、私钥路径四条信息。</p>
-<h4 id="5-更新证书"><a href="#5-更新证书" class="headerlink" title="5.更新证书"></a>5.更新证书</h4><p>因Let’s Encrypt提供的免费证书有效期为90天,所以我们通过以下语句通过续期<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">certbot renew --quiet</span><br></pre></td></tr></table></figure></p>
-<p>更新所有站点证书</p>
-<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
-<li><a href="https://certbot.eff.org" target="_blank" rel="noopener">Certbot</a></li>
-<li><a href="https://letsencrypt.org/" target="_blank" rel="noopener">Let’s Encrypt</a></li>
-</ul>
-
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-      
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1993,7 +2006,7 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">35</span>
+                    <span class="site-state-item-count">36</span>
                     <span class="site-state-item-name">日志</span>
                   </a>
                 </div>
@@ -2101,7 +2114,13 @@
                     
                       
                     
-                    <span class="site-state-item-count">39</span>
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">42</span>
                     <span class="site-state-item-name">标签</span>
                   
                 </div>
@@ -2140,7 +2159,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2021</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2022</span>
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
